@@ -8,7 +8,7 @@ dynamic = ["version"]
 authors = [
   { name="chentl", email="mtdump@chen.tl" },
 ]
-description = "A robust Python object serialization format with compression, encryption, and diagnostics metadata."
+description = "A robust object serialization format with compression, encryption, checksum validation, and diagnostics metadata."
 readme = "README.md"
 license = { file = "LICENSE" }
 

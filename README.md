@@ -1,10 +1,10 @@
 ## mtdump
 
-Robust Python object serialization to a single `.mtd` file with optional Zstandard compression, AES-256 encryption, and rich environment diagnostics metadata for compatibility and debugging.
+Robust Python object serialization to a single `.mtd` file with optional compression, encryption, checksum validation, and rich environment diagnostics metadata for compatibility and debugging.
 
 ### Intro
 
-`mtdump` provides two simple functions — `save_dump` and `load_dump` — to persist arbitrary Python objects safely. Dumps can be compressed, encrypted with a key, and include environment diagnostics metadata (Python, optionally specified packages, and versions of currently imported modules) to aid debugging and compatibility when loading across environments.
+`mtdump` provides two simple functions — `save_dump` and `load_dump` — to persist arbitrary Python objects safely. Dumps can be compressed, encrypted with a key, validated with checksum, and include environment diagnostics metadata (Python, optionally specified packages, and versions of currently imported modules) to aid debugging and compatibility when loading across environments.
 
 Key features:
 
@@ -32,11 +32,11 @@ restored = load_dump("data.mtd")
 assert restored == obj
 ```
 
-Enable encryption (auto-generate a secure key):
+Enable encryption with checksum validation (auto-generate a secure key):
 
 ```python
 result = save_dump(obj, "secret.mtd", passphrase="auto")
-restored = load_dump("secret.mtd", passphrase=result["passphrase"])  # base64 key
+restored = load_dump("secret.mtd", passphrase=result["passphrase"], checksum=result["checksum"])  # base64 key; validates SHA-256
 ```
 
 Use dill instead of pickle (for broader object support):
